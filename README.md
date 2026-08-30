@@ -8,11 +8,13 @@ Interactive demo notebooks for trying out our bioinformatics tools, designed to 
 
 ## What's inside
 
+Each tool's demo lives in its own folder under [`demonstrations/`](demonstrations), so you can run just the one you're interested in.
+
 | Notebook | Tool | Description |
 |---|---|---|
-| [`orthofinder_demonstration.ipynb`](orthofinder_demonstration.ipynb) | [OrthoFinder](https://github.com/OrthoFinder/OrthoFinder) | Orthogroup inference, gene trees, species trees, and orthologue analysis on example proteome data |
+| [`orthofinder_demonstration.ipynb`](demonstrations/orthofinder/orthofinder_demonstration.ipynb) | [OrthoFinder](https://github.com/OrthoFinder/OrthoFinder) | Orthogroup inference, gene trees, species trees, and orthologue analysis on example proteome data |
 
-More tool demonstrations will be added over time — each lives in its own notebook so you can run just the one you're interested in.
+More tool demonstrations will be added over time, each in its own subfolder under `demonstrations/`.
 
 ## Getting started
 
@@ -55,7 +57,7 @@ or, for the classic Notebook interface:
 ```bash
 jupyter notebook
 ```
-This opens in your browser automatically. From the file browser on the left, open the notebook for the tool you want to try (e.g. `orthofinder_demonstration.ipynb`).
+This opens in your browser automatically. From the file browser on the left, navigate into `demonstrations/<tool-name>/` and open the notebook for the tool you want to try (e.g. `demonstrations/orthofinder/orthofinder_demonstration.ipynb`).
 
 ### 6. Run the notebook
 
@@ -69,7 +71,7 @@ These notebooks are also designed to work in cloud-hosted Jupyter environments (
 
 ## Contributing
 
-Have a tool you'd like to see demonstrated here? Open an issue or submit a pull request with a new notebook following the same self-contained setup pattern as the existing ones.
+Have a tool you'd like to see demonstrated here? Open an issue or submit a pull request with a new notebook, placed in its own subfolder under `demonstrations/`, following the same self-contained setup pattern as the existing ones.
 
 ## License
 

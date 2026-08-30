@@ -16,9 +16,9 @@ jobs:
       fail-fast: false  # if you add more notebooks later, one failing won't cancel the others
       matrix:
         notebook:
-          - orthofinder_demonstration.ipynb
+          - demonstrations/orthofinder/orthofinder_demonstration.ipynb
           # add future notebooks here, one per line, e.g.:
-          # - other_tool_demonstration.ipynb
+          # - demonstrations/other_tool/other_tool_demonstration.ipynb
 
     steps:
       - name: Check out repo
@@ -36,16 +36,28 @@ jobs:
 
       - name: Execute notebook end-to-end
         run: |
+          NB="${{ matrix.notebook }}"
+          BASE="$(basename "$NB")"
+          DIR="$(dirname "$NB")"
+          OUT_NAME="executed_$BASE"
+
           jupyter nbconvert \
             --to notebook \
             --execute \
             --ExecutePreprocessor.timeout=1800 \
-            --output executed_${{ matrix.notebook }} \
-            "${{ matrix.notebook }}"
+            --output "$OUT_NAME" \
+            "$NB"
+
+          # nbconvert writes the output into the same directory as the input
+          # when --output is a bare filename (no path), so record the full
+          # resulting path for the upload step below.
+          echo "OUTPUT_PATH=$DIR/$OUT_NAME" >> "$GITHUB_ENV"
+          # Artifact names can't contain slashes, so use just the filename.
+          echo "ARTIFACT_NAME=executed-$BASE" >> "$GITHUB_ENV"
 
       - name: Upload executed notebook (for debugging on failure)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: executed-${{ matrix.notebook }}
-          path: executed_${{ matrix.notebook }}
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.OUTPUT_PATH }}
